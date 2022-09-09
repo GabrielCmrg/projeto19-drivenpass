@@ -1,0 +1,125 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "drivenpass",
+  "dateExported": "2022-09-09T20:02:30.862Z",
+  "version": "1.1",
+  "folders": [
+    {
+      "_id": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
+      "name": "Create account",
+      "containerId": "",
+      "created": "2022-09-09T18:45:56.001Z",
+      "sortNum": 10000
+    }
+  ],
+  "requests": [
+    {
+      "_id": "1653ac1a-2ce5-45ce-9af4-6e3d8caa21d4",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
+      "name": "[422] Invalid email",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2022-09-09T18:46:23.566Z",
+      "modified": "2022-09-09T19:31:55.182Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"invalid_email\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "422" }
+      ]
+    },
+    {
+      "_id": "fc0ad9c8-b9ba-440a-b0ce-f771d987ff78",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
+      "name": "[422] Invalid password",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2022-09-09T19:30:00.825Z",
+      "modified": "2022-09-09T19:31:45.767Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"email{{last_user_id_created}}@domain.com\",\n  \"password\": \"invalid\"\n}",
+        "form": []
+      },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "422" }
+      ]
+    },
+    {
+      "_id": "66fecfed-7763-46a9-b432-4cda21e33cec",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
+      "name": "[201] Create success",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2022-09-09T19:34:14.164Z",
+      "modified": "2022-09-09T20:00:52.021Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"email{{test_number}}@domain.com\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "201" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "schema",
+          "value": "{ \"$schema\": \"http://json-schema.org/draft-06/schema#\", \"$ref\": \"#/definitions/Welcome2\", \"definitions\": { \"Welcome2\": { \"type\": \"object\", \"additionalProperties\": false, \"properties\": { \"id\": { \"type\": \"integer\" }, \"email\": { \"type\": \"string\" } }, \"required\": [ \"email\", \"id\" ], \"title\": \"Welcome2\" } } }"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_user_id_created}}"
+        }
+      ]
+    },
+    {
+      "_id": "44e0f394-0e21-4f92-82fc-0c4ef269ff65",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
+      "name": "[409] Duplicate creation",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 40000,
+      "created": "2022-09-09T19:36:25.257Z",
+      "modified": "2022-09-09T20:00:41.752Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"email{{test_number}}@domain.com\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "409" },
+        {
+          "type": "set-env-var",
+          "custom": "{{test_number}} + 1",
+          "action": "setto",
+          "value": "{{test_number}}"
+        }
+      ]
+    }
+  ]
+}
