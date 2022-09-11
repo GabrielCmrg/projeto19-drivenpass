@@ -11,5 +11,10 @@ authRouter.post(
   validationMiddlewares.validateBody(authSchemas.credentialSchema),
   userController.signup
 );
+authRouter.post(
+  '/login',
+  validationMiddlewares.validateBody(authSchemas.credentialSchema),
+  userController.login
+);
 
 export default authRouter;
