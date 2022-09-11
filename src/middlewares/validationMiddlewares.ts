@@ -1,12 +1,18 @@
 import { ObjectSchema, ValidationResult } from 'joi';
 import { Request, Response, NextFunction } from 'express';
 
-export function validateBody(schema: ObjectSchema): Function {
-  return function (req: Request, res: Response, next: NextFunction): Response | void {
-    const validation: ValidationResult = schema.validate(req.body);
+export function validateBody<type>(schema: ObjectSchema<type>): Function {
+  return function (
+    req: Request,
+    res: Response<any, Record<string, type>>,
+    next: NextFunction
+  ): Response | void {
+    const validation: ValidationResult<type> = schema.validate(req.body);
     if (validation.error) {
       return res.status(422).json(validation.error);
     }
+
+    res.locals.reqBody = validation.value;
     return next();
   }
 }
