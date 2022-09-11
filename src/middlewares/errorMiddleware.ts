@@ -4,6 +4,7 @@ import { CustomError } from '../exceptions';
 
 const hash = {
   'conflict': 409,
+  'unauthorized': 401,
 };
 
 export function errorHandler(
@@ -14,7 +15,8 @@ export function errorHandler(
 ) {
   console.error(error);
   if ('type' in error) {
-    return res.status(hash[error.type]).send(error.message);
+    const statusCode: number = hash[error.type] || 400;
+    return res.status(statusCode).send(error.message);
   }
   return res.status(500).send('Something broke internally.');
 }

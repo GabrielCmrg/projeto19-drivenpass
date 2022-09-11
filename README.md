@@ -41,3 +41,22 @@ If the body is sent incorrectly you will receive a 422 status code and a body wi
   email, // the email you used to create the account
 }
 ```
+
+### Login
+
+You can login to server sending a POST request to `/login` with a body:
+
+```js
+{
+  email, // string with email format
+  password, //string with 10 or more characters
+}
+```
+
+If the body is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the email or password is incorrect you will receive a 401 with a message. If you succeed you will receive a 201 and a body with:
+
+```js
+{
+  token, // string, jwt token
+}
+```
