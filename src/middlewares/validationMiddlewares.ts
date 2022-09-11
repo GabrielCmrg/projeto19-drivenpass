@@ -1,7 +1,7 @@
 import { ObjectSchema, ValidationResult } from 'joi';
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
 
-export function validateBody<type>(schema: ObjectSchema<type>): Function {
+export function validateBody<type>(schema: ObjectSchema<type>): RequestHandler {
   return function (
     req: Request,
     res: Response<any, Record<string, type>>,
@@ -17,7 +17,7 @@ export function validateBody<type>(schema: ObjectSchema<type>): Function {
   }
 }
 
-export function validateHeader(schema: ObjectSchema): Function {
+export function validateHeader(schema: ObjectSchema): RequestHandler {
   return function (req: Request, res: Response, next: NextFunction): Response | void {
     const validation: ValidationResult = schema.validate(req.headers);
     if (validation.error) {
