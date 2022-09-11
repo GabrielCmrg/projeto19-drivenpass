@@ -5,5 +5,5 @@ import { UserCreationData } from '../types/userTypes';
 export const credentialSchema: Joi.ObjectSchema<UserCreationData> = Joi
   .object<UserCreationData, true>({
     email: Joi.string().trim().email().required(),
-    password: Joi.string().trim().required(),
+    password: Joi.string().trim().min(10).required(),
   });
