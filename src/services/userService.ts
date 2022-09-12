@@ -33,8 +33,10 @@ export async function loginUser(user: UserCreationData): Promise<string> {
 export async function checkToken(token: string): Promise<number> {
   const secretKey: string = process.env.JWT_SECRET_KEY || 'secret';
   const payload: jwt.JwtPayload | string = jwt.verify(token, secretKey);
-  if (typeof payload !== 'string') {
-    return Number(payload.userId);
+  const userId: number = typeof payload !== 'string' ? Number(payload.userId) : Number(payload);
+  const existingUser: User | null = await userRepository.getUserById(userId);
+  if (!existingUser) {
+    throw unauthorizedException('Invalid token.');
   }
-  return Number(payload);
+  return userId;
 }
