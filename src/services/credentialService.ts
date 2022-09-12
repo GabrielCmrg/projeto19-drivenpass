@@ -62,3 +62,18 @@ export async function retrieveCredential(
   credential.password = cryptr.decrypt(credential.password);
   return credential;
 }
+
+export async function deleteUserCredential(
+  credentialId: number,
+  requerentId: number
+): Promise<void> {
+  const credential: Credential | null = await credentialRepository
+    .getCredentialById(credentialId);
+  if (!credential) {
+    throw notFoundException('The credential you are trying to delete doesn\'t exist');
+  }
+  if (credential.ownerId !== requerentId) {
+    throw forbiddenException('You are not the owner of this credential.');
+  }
+  await credentialRepository.deleteCredentialById(credentialId);
+}
