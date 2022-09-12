@@ -29,3 +29,12 @@ export async function loginUser(user: UserCreationData): Promise<string> {
   const token: string = jwt.sign({ userId: existingUser.id }, secretKey);
   return token;
 }
+
+export async function checkToken(token: string): Promise<number> {
+  const secretKey: string = process.env.JWT_SECRET_KEY || 'secret';
+  const payload: jwt.JwtPayload | string = jwt.verify(token, secretKey);
+  if (typeof payload !== 'string') {
+    return Number(payload.userId);
+  }
+  return Number(payload);
+}
