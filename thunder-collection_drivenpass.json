@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-11T22:13:56.864Z",
+  "dateExported": "2022-09-12T04:00:24.661Z",
   "version": "1.1",
   "folders": [
     {
@@ -24,14 +24,16 @@
       "name": "Create credentials",
       "containerId": "",
       "created": "2022-09-11T21:08:57.444Z",
-      "sortNum": 30000
+      "sortNum": 30000,
+      "settings": {}
     },
     {
       "_id": "c69603d6-77a0-4bb2-b67b-f80febb3c8df",
       "name": "Other user with same title",
       "containerId": "",
       "created": "2022-09-11T22:06:12.306Z",
-      "sortNum": 40000
+      "sortNum": 40000,
+      "settings": {}
     }
   ],
   "requests": [
@@ -123,12 +125,12 @@
       "method": "POST",
       "sortNum": 10000,
       "created": "2022-09-11T21:53:26.525Z",
-      "modified": "2022-09-11T22:13:00.481Z",
+      "modified": "2022-09-12T03:59:25.580Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"title\": \"{{last_credential_title_created}}\",\n  \"url\": \"google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
+        "raw": "{\n  \"title\": \"{{last_credential_title_created}}\",\n  \"url\": \"https://google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
         "form": []
       },
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
@@ -208,7 +210,7 @@
       "method": "POST",
       "sortNum": 30000,
       "created": "2022-09-09T19:34:14.164Z",
-      "modified": "2022-09-11T18:03:13.372Z",
+      "modified": "2022-09-11T22:18:27.044Z",
       "headers": [],
       "params": [],
       "body": {
@@ -226,18 +228,6 @@
           "value": "true"
         },
         {
-          "type": "set-env-var",
-          "custom": "json.id",
-          "action": "setto",
-          "value": "{{last_user_id_created}}"
-        },
-        {
-          "type": "set-env-var",
-          "custom": "json.email",
-          "action": "setto",
-          "value": "{{last_email_created}}"
-        },
-        {
           "type": "json-query",
           "custom": "json.id",
           "action": "istype",
@@ -248,6 +238,18 @@
           "custom": "json.email",
           "action": "istype",
           "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_user_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.email",
+          "action": "setto",
+          "value": "{{last_email_created}}"
         }
       ]
     },
@@ -384,12 +386,12 @@
       "method": "POST",
       "sortNum": 70000,
       "created": "2022-09-11T21:28:49.665Z",
-      "modified": "2022-09-11T21:29:42.968Z",
+      "modified": "2022-09-12T03:52:27.217Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"title\": \"Credential title\",\n  \"url\": \"google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
+        "raw": "{\n  \"title\": \"Credential title\",\n  \"url\": \"https://google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
         "form": []
       },
       "auth": { "type": "bearer", "bearer": "invalidToken" },
@@ -406,12 +408,12 @@
       "method": "POST",
       "sortNum": 80000,
       "created": "2022-09-11T21:32:07.014Z",
-      "modified": "2022-09-11T21:43:27.902Z",
+      "modified": "2022-09-12T03:58:22.135Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"title\": \"Credential title{{last_credential_id_created}}\",\n  \"url\": \"google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
+        "raw": "{\n  \"title\": \"Credential title{{last_credential_id_created}}\",\n  \"url\": \"https://google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
         "form": []
       },
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
@@ -470,12 +472,12 @@
       "method": "POST",
       "sortNum": 90000,
       "created": "2022-09-11T21:34:02.102Z",
-      "modified": "2022-09-11T21:45:02.744Z",
+      "modified": "2022-09-12T03:58:47.733Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n  \"title\": \"{{last_credential_title_created}}\",\n  \"url\": \"google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
+        "raw": "{\n  \"title\": \"{{last_credential_title_created}}\",\n  \"url\": \"https://google.com\",\n  \"username\": \"login\",\n  \"password\": \"password\"\n}",
         "form": []
       },
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
