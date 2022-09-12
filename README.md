@@ -60,3 +60,36 @@ If the body is sent incorrectly you will receive a 422 status code and a body wi
   token, // string, jwt token
 }
 ```
+
+### Create a credential
+
+You can create a credential of a url by sending a POST request to `/credentials` with a body:
+
+```js
+{
+  title, // string
+  url, // string with uri format
+  username, // string
+  password, // string
+}
+```
+
+Since this is a authenticated route, you will need to send a header too:
+
+```js
+{
+  Authorization: 'Bearer ${token}', // token is a jwt token sent on login
+}
+```
+
+If the body or header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 201 and a body with:
+
+```js
+{
+  id, // integer identification of you credential
+  title, // string
+  url, // string with uri format
+  username, // string
+  ownerId, // integer, identification of the user linked with the credential
+}
+```
