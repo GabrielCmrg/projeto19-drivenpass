@@ -1,10 +1,14 @@
 import { ObjectSchema, ValidationResult } from 'joi';
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function validateBody<type>(schema: ObjectSchema<type>): RequestHandler {
+import { authSchemas } from '../schemas';
+import { HeaderType, LocalsType } from '../types/requestTypes';
+import { userService } from '../services';
+
+export function validateBody<type>(schema: ObjectSchema<type>) {
   return function (
     req: Request,
-    res: Response<any, Record<string, type>>,
+    res: Response<any, LocalsType<type>>,
     next: NextFunction
   ): Response | void {
     const validation: ValidationResult<type> = schema.validate(req.body);
