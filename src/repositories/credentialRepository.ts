@@ -34,3 +34,7 @@ export async function getCredentialById(credentialId: number): Promise<Credentia
   });
   return credential;
 }
+
+export async function deleteCredentialById(credentialId: number): Promise<void> {
+  await client.credential.delete({ where: { id: credentialId } });
+}

@@ -115,3 +115,9 @@ If the header is sent incorrectly you will receive a 422 status code and a body 
 ```
 
 You can also get a single credential providing the credentialId to the route `/credentials/:credentialId`. The same status codes will be used plus 404 if the credentialId is not a number or a credential that doesn't exist; or 403 if you try to get a credential from another user. The body is the same except it's not a array.
+
+### Delete credentials **authenticated**
+
+You can get a credential by sending a DELETE request to `/credentials/:credentialId`.
+
+If the header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 204. You can also receive 404 if the credentialId is not a number or a credential that doesn't exist; or 403 if you try to delete a credential from another user.

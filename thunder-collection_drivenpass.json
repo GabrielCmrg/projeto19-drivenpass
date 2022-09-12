@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-12T16:52:46.515Z",
+  "dateExported": "2022-09-12T19:18:26.738Z",
   "version": "1.1",
   "folders": [
     {
@@ -40,7 +40,15 @@
       "name": "Search credentials",
       "containerId": "",
       "created": "2022-09-12T15:03:03.079Z",
-      "sortNum": 50000
+      "sortNum": 50000,
+      "settings": {}
+    },
+    {
+      "_id": "ac0167bd-be6e-4b7b-9c2c-e244381bf2ec",
+      "name": "Delete credential",
+      "containerId": "",
+      "created": "2022-09-12T19:12:48.506Z",
+      "sortNum": 60000
     }
   ],
   "requests": [
@@ -617,6 +625,23 @@
       ]
     },
     {
+      "_id": "7f86f0ab-7964-4c62-b0d3-f163e9d86b1e",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "ac0167bd-be6e-4b7b-9c2c-e244381bf2ec",
+      "name": "[204] Delete success",
+      "url": "{{base_url}}/credentials/{{last_credential_id_created}}",
+      "method": "DELETE",
+      "sortNum": 120000,
+      "created": "2022-09-12T19:13:17.183Z",
+      "modified": "2022-09-12T19:16:32.040Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "204" }
+      ]
+    },
+    {
       "_id": "0308d888-dd56-4ed5-ae3c-565570a495a2",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
@@ -634,6 +659,23 @@
       ]
     },
     {
+      "_id": "ab0428d9-6957-4a51-b3d7-0acd37a0b2b2",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "ac0167bd-be6e-4b7b-9c2c-e244381bf2ec",
+      "name": "[404] Delete non-existing",
+      "url": "{{base_url}}/credentials/{{last_credential_id_created}}",
+      "method": "DELETE",
+      "sortNum": 130000,
+      "created": "2022-09-12T19:16:42.123Z",
+      "modified": "2022-09-12T19:18:12.253Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
+      ]
+    },
+    {
       "_id": "2d60f762-5409-4a65-8e96-d30b7d3671da",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
@@ -648,6 +690,23 @@
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
+      ]
+    },
+    {
+      "_id": "bd75669c-9053-4c62-9b0f-81851a86cb63",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "ac0167bd-be6e-4b7b-9c2c-e244381bf2ec",
+      "name": "[403] Delete other user credential",
+      "url": "{{base_url}}/credentials/1",
+      "method": "DELETE",
+      "sortNum": 140000,
+      "created": "2022-09-12T19:17:17.060Z",
+      "modified": "2022-09-12T19:18:00.019Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
       ]
     }
   ],

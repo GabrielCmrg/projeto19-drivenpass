@@ -22,5 +22,10 @@ credentialRouter.get(
   validationMiddlewares.validateHeader,
   credentialController.searchCredential
 );
+credentialRouter.delete(
+  '/credentials/:credentialId',
+  validationMiddlewares.validateHeader,
+  credentialController.deleteCredential
+);
 
 export default credentialRouter;
