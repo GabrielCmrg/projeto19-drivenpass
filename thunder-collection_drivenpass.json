@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-12T20:01:06.109Z",
+  "dateExported": "2022-09-12T21:00:02.551Z",
   "version": "1.1",
   "folders": [
     {
@@ -56,14 +56,32 @@
       "name": "Create notes",
       "containerId": "",
       "created": "2022-09-12T19:47:12.760Z",
-      "sortNum": 70000
+      "sortNum": 70000,
+      "settings": {}
     },
     {
       "_id": "0ab88366-a1f7-427c-8a9f-cf15cae3293d",
       "name": "Other user same note title",
       "containerId": "",
       "created": "2022-09-12T19:57:29.108Z",
-      "sortNum": 80000
+      "sortNum": 80000,
+      "settings": {}
+    },
+    {
+      "_id": "8bffbdbd-893b-4632-b518-1c09efef9bba",
+      "name": "Search notes",
+      "containerId": "",
+      "created": "2022-09-12T20:48:33.576Z",
+      "sortNum": 90000,
+      "settings": {}
+    },
+    {
+      "_id": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
+      "name": "Delete notes",
+      "containerId": "",
+      "created": "2022-09-12T20:57:01.035Z",
+      "sortNum": 100000,
+      "settings": {}
     }
   ],
   "requests": [
@@ -350,7 +368,7 @@
       "method": "POST",
       "sortNum": 30000,
       "created": "2022-09-12T19:58:37.788Z",
-      "modified": "2022-09-12T20:00:30.502Z",
+      "modified": "2022-09-12T20:56:12.196Z",
       "headers": [],
       "params": [],
       "body": {
@@ -389,13 +407,13 @@
           "type": "set-env-var",
           "custom": "json.id",
           "action": "setto",
-          "value": "{{last_credential_id_created}}"
+          "value": "{{last_note_id_created}}"
         },
         {
           "type": "set-env-var",
           "custom": "json.title",
           "action": "setto",
-          "value": "{{last_credential_title_created}}"
+          "value": "{{last_note_title_created}}"
         }
       ]
     },
@@ -940,6 +958,191 @@
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "409" }
+      ]
+    },
+    {
+      "_id": "c7e6eb34-2b09-4ac9-aace-a03fcd5e5e8e",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "8bffbdbd-893b-4632-b518-1c09efef9bba",
+      "name": "[200] All user notes",
+      "url": "{{base_url}}/notes",
+      "method": "GET",
+      "sortNum": 150000,
+      "created": "2022-09-12T20:48:47.907Z",
+      "modified": "2022-09-12T20:51:17.171Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.body",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "7b03e248-acd7-4de4-b84c-d9c5286eeabc",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "8bffbdbd-893b-4632-b518-1c09efef9bba",
+      "name": "[200] Single user note",
+      "url": "{{base_url}}/notes/{{last_note_id_created}}",
+      "method": "GET",
+      "sortNum": 160000,
+      "created": "2022-09-12T20:51:24.639Z",
+      "modified": "2022-09-12T20:53:50.791Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.body",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "e9bec972-5df5-4ac6-a132-080f9f76ecf2",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "8bffbdbd-893b-4632-b518-1c09efef9bba",
+      "name": "[403] Another user note",
+      "url": "{{base_url}}/notes/1",
+      "method": "GET",
+      "sortNum": 170000,
+      "created": "2022-09-12T20:52:49.184Z",
+      "modified": "2022-09-12T20:54:32.686Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "e70f47de-c129-4cfc-bd6f-ee3b298384d3",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
+      "name": "[204] Delete success",
+      "url": "{{base_url}}/notes/{{last_note_id_created}}",
+      "method": "DELETE",
+      "sortNum": 170000,
+      "created": "2022-09-12T20:57:29.619Z",
+      "modified": "2022-09-12T20:58:15.156Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "204" }
+      ]
+    },
+    {
+      "_id": "f2abf6d7-d6b8-4542-8f6c-eaceec9c6d28",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "8bffbdbd-893b-4632-b518-1c09efef9bba",
+      "name": "[404] Non-existing note",
+      "url": "{{base_url}}/notes/0",
+      "method": "GET",
+      "sortNum": 180000,
+      "created": "2022-09-12T20:54:37.250Z",
+      "modified": "2022-09-12T20:55:01.219Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
+      ]
+    },
+    {
+      "_id": "b41cd398-8e92-41d8-b873-92d3d90979e3",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
+      "name": "[404] Delete non-existing",
+      "url": "{{base_url}}/notes/0",
+      "method": "DELETE",
+      "sortNum": 180000,
+      "created": "2022-09-12T20:58:20.555Z",
+      "modified": "2022-09-12T20:58:46.972Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
+      ]
+    },
+    {
+      "_id": "2f0e020a-3c54-4bec-8a86-b3b73a737488",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
+      "name": "[403] Delete other user note",
+      "url": "{{base_url}}/notes/1",
+      "method": "DELETE",
+      "sortNum": 190000,
+      "created": "2022-09-12T20:59:02.951Z",
+      "modified": "2022-09-12T20:59:24.909Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
       ]
     }
   ],
