@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-12T21:00:02.551Z",
+  "dateExported": "2022-09-12T22:23:26.794Z",
   "version": "1.1",
   "folders": [
     {
@@ -77,10 +77,39 @@
     },
     {
       "_id": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
-      "name": "Delete notes",
+      "name": "Delete note",
       "containerId": "",
       "created": "2022-09-12T20:57:01.035Z",
       "sortNum": 100000,
+      "settings": {}
+    },
+    {
+      "_id": "b8fbb239-45c6-41cd-96d0-4d3ee21ad477",
+      "name": "Create cards",
+      "containerId": "",
+      "created": "2022-09-12T21:26:30.046Z",
+      "sortNum": 110000
+    },
+    {
+      "_id": "eec29f31-b000-430e-8ff9-46b06854bd1e",
+      "name": "Other user same card title",
+      "containerId": "",
+      "created": "2022-09-12T21:54:51.640Z",
+      "sortNum": 120000
+    },
+    {
+      "_id": "0d9fe9ba-2010-4171-9a54-0d1a4f243f22",
+      "name": "Search cards",
+      "containerId": "",
+      "created": "2022-09-12T22:05:33.836Z",
+      "sortNum": 130000
+    },
+    {
+      "_id": "413cf768-8001-43ed-aad1-870e8f281c39",
+      "name": "Delete card",
+      "containerId": "",
+      "created": "2022-09-12T22:21:28.488Z",
+      "sortNum": 140000,
       "settings": {}
     }
   ],
@@ -650,6 +679,38 @@
       ]
     },
     {
+      "_id": "5e5da298-074f-48ba-94da-6b0308fa2f86",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "eec29f31-b000-430e-8ff9-46b06854bd1e",
+      "name": "Create other user",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 95000,
+      "created": "2022-09-12T21:57:07.910Z",
+      "modified": "2022-09-12T21:57:21.213Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"email{{last_user_id_created}}@domain.com\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_user_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.email",
+          "action": "setto",
+          "value": "{{last_email_created}}"
+        }
+      ]
+    },
+    {
       "_id": "0a22212e-5a0d-418b-b06b-39f5ce48fc1c",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
@@ -939,6 +1000,32 @@
       ]
     },
     {
+      "_id": "c7264286-a4fb-49d5-a9f1-4141b8870b17",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "eec29f31-b000-430e-8ff9-46b06854bd1e",
+      "name": "Login other user",
+      "url": "{{base_url}}/login",
+      "method": "POST",
+      "sortNum": 142500,
+      "created": "2022-09-12T21:57:15.319Z",
+      "modified": "2022-09-12T21:57:22.824Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"{{last_email_created}}\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.token",
+          "action": "setto",
+          "value": "{{last_token}}"
+        }
+      ]
+    },
+    {
       "_id": "5877e014-6f4b-4d5f-8edc-a3eb56300b9b",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "763d3e64-5b62-43ba-89fa-1674c0b3d6a9",
@@ -1095,6 +1182,23 @@
       ]
     },
     {
+      "_id": "bed1a8ce-4a1b-4a7f-bc3e-14e52a5a1060",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "413cf768-8001-43ed-aad1-870e8f281c39",
+      "name": "[204] Delete success",
+      "url": "{{base_url}}/cards/{{last_card_id_created}}",
+      "method": "DELETE",
+      "sortNum": 170000,
+      "created": "2022-09-12T22:21:28.488Z",
+      "modified": "2022-09-12T22:22:11.148Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "204" }
+      ]
+    },
+    {
       "_id": "f2abf6d7-d6b8-4542-8f6c-eaceec9c6d28",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "8bffbdbd-893b-4632-b518-1c09efef9bba",
@@ -1129,6 +1233,111 @@
       ]
     },
     {
+      "_id": "448043d4-3946-45c7-9d51-5ed467bad6b9",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "b8fbb239-45c6-41cd-96d0-4d3ee21ad477",
+      "name": "[201] Create card",
+      "url": "{{base_url}}/cards",
+      "method": "POST",
+      "sortNum": 180000,
+      "created": "2022-09-12T21:27:18.732Z",
+      "modified": "2022-09-12T22:12:20.506Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"title{{last_card_id_created}}\",\n  \"cardNumber\": \"1234456789101112\",\n  \"printedName\": \"carlinhos andrade\",\n  \"CVV\": 123,\n  \"expiresAt\": \"03/22\",\n  \"password\": \"4568\",\n  \"isVirtual\": false,\n  \"type\": \"both\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "201" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.cardNumber",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.printedName",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.expiresAt",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.isVirtual",
+          "action": "istype",
+          "value": "boolean"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.type",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.ownerId",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_card_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.title",
+          "action": "setto",
+          "value": "{{last_card_title_created}}"
+        }
+      ]
+    },
+    {
+      "_id": "0769e387-209f-48fa-9c73-613f036a78ac",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "413cf768-8001-43ed-aad1-870e8f281c39",
+      "name": "[404] Delete non-existing",
+      "url": "{{base_url}}/cards/0",
+      "method": "DELETE",
+      "sortNum": 180000,
+      "created": "2022-09-12T22:21:28.489Z",
+      "modified": "2022-09-12T22:22:43.412Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
+      ]
+    },
+    {
       "_id": "2f0e020a-3c54-4bec-8a86-b3b73a737488",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "fc604e4e-51b6-4394-87b5-daed9e9ff20c",
@@ -1143,6 +1352,309 @@
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "fb289eb2-612a-4dd2-b4df-f69e0c7f99b8",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "b8fbb239-45c6-41cd-96d0-4d3ee21ad477",
+      "name": "[409] Duplicate card title",
+      "url": "{{base_url}}/cards",
+      "method": "POST",
+      "sortNum": 190000,
+      "created": "2022-09-12T21:53:41.154Z",
+      "modified": "2022-09-12T21:54:26.172Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"{{last_card_title_created}}\",\n  \"cardNumber\": \"1234456789101112\",\n  \"printedName\": \"carlinhos andrade\",\n  \"CVV\": 123,\n  \"expiresAt\": \"03/22\",\n  \"password\": \"4568\",\n  \"isVirtual\": false,\n  \"type\": \"both\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "409" }
+      ]
+    },
+    {
+      "_id": "7876b9a2-32db-4773-b12a-3c6c07cd171b",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "eec29f31-b000-430e-8ff9-46b06854bd1e",
+      "name": "[201] Other user duplicate title",
+      "url": "{{base_url}}/cards",
+      "method": "POST",
+      "sortNum": 190000,
+      "created": "2022-09-12T21:56:04.970Z",
+      "modified": "2022-09-12T22:02:32.879Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"{{last_card_title_created}}\",\n  \"cardNumber\": \"1234456789101112\",\n  \"printedName\": \"carlinhos andrade\",\n  \"CVV\": 123,\n  \"expiresAt\": \"03/22\",\n  \"password\": \"4568\",\n  \"isVirtual\": false,\n  \"type\": \"both\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "201" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.titile",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.cardNumber",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.printedName",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.expiredAt",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.isVirtual",
+          "action": "istype",
+          "value": "boolean"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.type",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_card_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.title",
+          "action": "setto",
+          "value": "{{last_card_title_created}}"
+        }
+      ]
+    },
+    {
+      "_id": "abb62899-f773-4024-a6ac-d5547e81d9e2",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "413cf768-8001-43ed-aad1-870e8f281c39",
+      "name": "[403] Delete other user note",
+      "url": "{{base_url}}/cards/1",
+      "method": "DELETE",
+      "sortNum": 190000,
+      "created": "2022-09-12T22:21:28.490Z",
+      "modified": "2022-09-12T22:23:04.485Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "57ff2481-167f-4a56-aac6-5a8252388580",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0d9fe9ba-2010-4171-9a54-0d1a4f243f22",
+      "name": "[200] All user cards",
+      "url": "{{base_url}}/cards",
+      "method": "GET",
+      "sortNum": 200000,
+      "created": "2022-09-12T22:06:20.851Z",
+      "modified": "2022-09-12T22:14:53.369Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.cardNumber",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.printedName",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.expiresAt",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.isVirtual",
+          "action": "istype",
+          "value": "boolean"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.type",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "209601e2-a409-4d96-aacc-d48b3c02ffc5",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0d9fe9ba-2010-4171-9a54-0d1a4f243f22",
+      "name": "[200] Single user card",
+      "url": "{{base_url}}/cards/{{last_card_id_created}}",
+      "method": "GET",
+      "sortNum": 210000,
+      "created": "2022-09-12T22:14:12.754Z",
+      "modified": "2022-09-12T22:18:42.171Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.cardNumber",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.printedName",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.expiresAt",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.isVirtual",
+          "action": "istype",
+          "value": "boolean"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.type",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "0501480f-a4fe-4958-a2bc-7fa0d7f86eb5",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0d9fe9ba-2010-4171-9a54-0d1a4f243f22",
+      "name": "[403] Another user card",
+      "url": "{{base_url}}/cards/1",
+      "method": "GET",
+      "sortNum": 220000,
+      "created": "2022-09-12T22:19:37.114Z",
+      "modified": "2022-09-12T22:20:26.206Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "375bcb03-8a92-48c9-a27d-c4c0e757a3c5",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0d9fe9ba-2010-4171-9a54-0d1a4f243f22",
+      "name": "[404] Non-existing card",
+      "url": "{{base_url}}/cards/0",
+      "method": "GET",
+      "sortNum": 230000,
+      "created": "2022-09-12T22:20:28.655Z",
+      "modified": "2022-09-12T22:20:53.673Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
       ]
     }
   ],
