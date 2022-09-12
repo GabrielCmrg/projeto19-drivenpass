@@ -21,12 +21,19 @@ export function validateBody<type>(schema: ObjectSchema<type>) {
   }
 }
 
-export function validateHeader(schema: ObjectSchema): RequestHandler {
-  return function (req: Request, res: Response, next: NextFunction): Response | void {
-    const validation: ValidationResult = schema.validate(req.headers);
-    if (validation.error) {
-      return res.status(401).json(validation.error);
-    }
-    return next();
+export async function validateHeader(
+  req: Request,
+  res: Response<any, LocalsType>,
+  next: NextFunction
+): Promise<Response | void> {
+  const validation: ValidationResult<HeaderType> = authSchemas
+    .headerSchema.validate(req.headers);
+  if (validation.error) {
+    return res.status(422).json(validation.error);
   }
+
+  const token: string = validation.value.authentication.replace('Bearer ', '');
+  const userId: number = await userService.checkToken(token);
+  res.locals.userId = userId;
+  return next();
 }
