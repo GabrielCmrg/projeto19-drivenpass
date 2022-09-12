@@ -118,6 +118,54 @@ You can also get a single credential providing the credentialId to the route `/c
 
 ### Delete credentials **authenticated**
 
-You can get a credential by sending a DELETE request to `/credentials/:credentialId`.
+You can delete a credential by sending a DELETE request to `/credentials/:credentialId`.
+
+If the header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 204. You can also receive 404 if the credentialId is not a number or a credential that doesn't exist; or 403 if you try to delete a credential from another user.
+
+### Create a note **authenticated**
+
+You can create a protected by sending a POST request to `/notes` with a body:
+
+```js
+{
+  title, // string with max 50 characters
+  body, // string with max 1000 characters
+}
+```
+
+If the body or header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 201 and a body with:
+
+```js
+{
+  id, // integer identification of you credential
+  title, // string
+  body, // string with uri format
+  ownerId, // integer, identification of the user linked with the credential
+}
+```
+
+### Retrieve notes **authenticated**
+
+You can get a note list by sending a GET request to `/notes`.
+
+If the header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 200 and a body with:
+
+```js
+[
+  {
+    id, // integer identification of you credential
+    title, // string
+    body, // string with uri format
+    ownerId, // integer, identification of the user linked with the credential
+  },
+  // ...
+];
+```
+
+You can also get a single note providing the noteId to the route `/note/:noteId`. The same status codes will be used plus 404 if the noteId is not a number or a note that doesn't exist; or 403 if you try to get a note from another user. The body is the same except it's not a array.
+
+### Delete notes **authenticated**
+
+You can delete a note by sending a DELETE request to `/notes/:noteId`.
 
 If the header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 204. You can also receive 404 if the credentialId is not a number or a credential that doesn't exist; or 403 if you try to delete a credential from another user.

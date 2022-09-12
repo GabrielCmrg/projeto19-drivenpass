@@ -41,8 +41,8 @@ export async function retrieveUserCredentials(userId: number): Promise<Credentia
   const credentials: Credential[] = await credentialRepository.getUserCredentials(userId);
   credentials.forEach((credential) => {
     const password: string = credential.password;
-    const decriptedPassword: string = cryptr.decrypt(password);
-    credential.password = decriptedPassword;
+    const decryptedPassword: string = cryptr.decrypt(password);
+    credential.password = decryptedPassword;
   });
   return credentials;
 }
