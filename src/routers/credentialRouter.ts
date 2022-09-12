@@ -12,5 +12,15 @@ credentialRouter.post(
   validationMiddlewares.validateHeader,
   credentialController.createCredential
 );
+credentialRouter.get(
+  '/credentials',
+  validationMiddlewares.validateHeader,
+  credentialController.searchUserCredentials
+);
+credentialRouter.get(
+  '/credentials/:credentialId',
+  validationMiddlewares.validateHeader,
+  credentialController.searchCredential
+);
 
 export default credentialRouter;

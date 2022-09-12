@@ -22,6 +22,14 @@ Once you have the database you can start the server and make your requests. If y
 
 On **every** route, if anything breaks internally the route will repond with status code 500.
 
+On **every authenticated** route you will need to send a JWT token on the header of you request:
+
+```js
+{
+  Authorization: 'Bearer ${token}', // token is a jwt token received on login
+}
+```
+
 ### Create account
 
 You can create an account sending a POST request to `/sign-up` with a body:
@@ -61,7 +69,7 @@ If the body is sent incorrectly you will receive a 422 status code and a body wi
 }
 ```
 
-### Create a credential
+### Create a credential **authenticated**
 
 You can create a credential of a url by sending a POST request to `/credentials` with a body:
 
@@ -71,14 +79,6 @@ You can create a credential of a url by sending a POST request to `/credentials`
   url, // string with uri format
   username, // string
   password, // string
-}
-```
-
-Since this is a authenticated route, you will need to send a header too:
-
-```js
-{
-  Authorization: 'Bearer ${token}', // token is a jwt token sent on login
 }
 ```
 
@@ -93,3 +93,25 @@ If the body or header is sent incorrectly you will receive a 422 status code and
   ownerId, // integer, identification of the user linked with the credential
 }
 ```
+
+### Retrieve credentials **authenticated**
+
+You can get a credential list by sending a GET request to `/credentials`.
+
+If the header is sent incorrectly you will receive a 422 status code and a body with the joi validation error. If the token is invalid you will receive a 401 with a message. If you succeed you will receive a 200 and a body with:
+
+```js
+[
+  {
+    id, // integer identification of you credential
+    title, // string
+    url, // string with uri format
+    username, // string
+    password, // string decrypted
+    ownerId, // integer, identification of the user linked with the credential
+  },
+  // ...
+];
+```
+
+You can also get a single credential providing the credentialId to the route `/credentials/:credentialId`. The same status codes will be used plus 404 if the credentialId is not a number or a credential that doesn't exist; or 403 if you try to get a credential from another user. The body is the same except it's not a array.

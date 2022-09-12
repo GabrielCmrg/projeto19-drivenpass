@@ -6,6 +6,8 @@ import { CustomError } from '../exceptions';
 const hash = {
   'conflict': 409,
   'unauthorized': 401,
+  'not_found': 404,
+  'forbidden': 403,
 };
 
 export function errorHandler(

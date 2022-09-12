@@ -20,3 +20,17 @@ export async function getCredentialByComposition(
   });
   return credential;
 }
+
+export async function getUserCredentials(ownerId: number): Promise<Credential[]> {
+  const credentials: Credential[] = await client.credential.findMany({
+    where: { ownerId }
+  });
+  return credentials;
+}
+
+export async function getCredentialById(credentialId: number): Promise<Credential | null> {
+  const credential: Credential | null = await client.credential.findUnique({
+    where: { id: credentialId }
+  });
+  return credential;
+}
