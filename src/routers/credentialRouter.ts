@@ -18,7 +18,7 @@ credentialRouter.get(
   credentialController.searchUserCredentials
 );
 credentialRouter.get(
-  '/credentials/:credentiaId',
+  '/credentials/:credentialId',
   validationMiddlewares.validateHeader,
   credentialController.searchCredential
 );

@@ -8,6 +8,7 @@ import {
 } from '../types/credentialTypes';
 import { credentialService } from '../services';
 import { LocalsType } from '../types/requestTypes';
+import { notFoundException } from '../exceptions';
 
 export async function createCredential(
   req: Request,
@@ -35,6 +36,9 @@ export async function searchCredential(
   res: Response<any, LocalsType>
 ): Promise<Response> {
   const credentialId: number = Number(req.params.credentialId);
+  if (isNaN(credentialId)) {
+    throw notFoundException('The credential you are trying to see doesn\'t exist')
+  }
   const userId: number = res.locals.userId;
   const credential: Credential = await credentialService.retrieveCredential(credentialId, userId);
   return res.status(200).json(credential);
