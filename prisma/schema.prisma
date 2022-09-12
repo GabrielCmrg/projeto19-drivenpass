@@ -11,9 +11,23 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  email    String @unique
-  password String
+  id          Int          @id @default(autoincrement())
+  email       String       @unique
+  password    String
+  credentials Credential[]
 
   @@map("users")
+}
+
+model Credential {
+  id       Int    @id @default(autoincrement())
+  title    String
+  url      String
+  username String
+  password String
+  owner    User   @relation(fields: [ownerId], references: [id])
+  ownerId  Int
+
+  @@unique([title, ownerId])
+  @@map("credentials")
 }

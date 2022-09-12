@@ -1,10 +1,14 @@
 import { ObjectSchema, ValidationResult } from 'joi';
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
-export function validateBody<type>(schema: ObjectSchema<type>): RequestHandler {
+import { authSchemas } from '../schemas';
+import { HeaderType, LocalsType } from '../types/requestTypes';
+import { userService } from '../services';
+
+export function validateBody<type>(schema: ObjectSchema<type>) {
   return function (
     req: Request,
-    res: Response<any, Record<string, type>>,
+    res: Response<any, LocalsType<type>>,
     next: NextFunction
   ): Response | void {
     const validation: ValidationResult<type> = schema.validate(req.body);
@@ -17,12 +21,19 @@ export function validateBody<type>(schema: ObjectSchema<type>): RequestHandler {
   }
 }
 
-export function validateHeader(schema: ObjectSchema): RequestHandler {
-  return function (req: Request, res: Response, next: NextFunction): Response | void {
-    const validation: ValidationResult = schema.validate(req.headers);
-    if (validation.error) {
-      return res.status(401).json(validation.error);
-    }
-    return next();
+export async function validateHeader(
+  req: Request,
+  res: Response<any, LocalsType>,
+  next: NextFunction
+): Promise<Response | void> {
+  const validation: ValidationResult<HeaderType> = authSchemas
+    .headerSchema.validate(req.headers);
+  if (validation.error) {
+    return res.status(422).json(validation.error);
   }
+
+  const token: string = validation.value.authorization.replace('Bearer ', '');
+  const userId: number = await userService.checkToken(token);
+  res.locals.userId = userId;
+  return next();
 }
