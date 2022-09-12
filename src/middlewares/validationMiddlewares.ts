@@ -32,7 +32,7 @@ export async function validateHeader(
     return res.status(422).json(validation.error);
   }
 
-  const token: string = validation.value.authentication.replace('Bearer ', '');
+  const token: string = validation.value.authorization.replace('Bearer ', '');
   const userId: number = await userService.checkToken(token);
   res.locals.userId = userId;
   return next();

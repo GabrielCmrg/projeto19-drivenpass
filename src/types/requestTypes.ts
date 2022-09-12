@@ -1,5 +1,5 @@
 export type HeaderType = {
-  authentication: string;
+  authorization: string;
   [key: string]: any;
 };
 export type LocalsType<type = any> = {

@@ -11,5 +11,5 @@ export const credentialSchema: Joi.ObjectSchema<UserCreationData> = Joi
 
 export const headerSchema: Joi.ObjectSchema<HeaderType> = Joi
   .object<HeaderType, true>({
-    authentication: Joi.string().trim().pattern(/^Bearer .+/).required(),
+    authorization: Joi.string().trim().pattern(/^Bearer .+/).required(),
   }).unknown(true);
