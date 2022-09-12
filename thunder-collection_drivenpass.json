@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-12T19:18:26.738Z",
+  "dateExported": "2022-09-12T20:01:06.109Z",
   "version": "1.1",
   "folders": [
     {
@@ -48,7 +48,22 @@
       "name": "Delete credential",
       "containerId": "",
       "created": "2022-09-12T19:12:48.506Z",
-      "sortNum": 60000
+      "sortNum": 60000,
+      "settings": {}
+    },
+    {
+      "_id": "763d3e64-5b62-43ba-89fa-1674c0b3d6a9",
+      "name": "Create notes",
+      "containerId": "",
+      "created": "2022-09-12T19:47:12.760Z",
+      "sortNum": 70000
+    },
+    {
+      "_id": "0ab88366-a1f7-427c-8a9f-cf15cae3293d",
+      "name": "Other user same note title",
+      "containerId": "",
+      "created": "2022-09-12T19:57:29.108Z",
+      "sortNum": 80000
     }
   ],
   "requests": [
@@ -196,6 +211,38 @@
       ]
     },
     {
+      "_id": "6fea372a-2632-434f-a430-eeaf7cadac61",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0ab88366-a1f7-427c-8a9f-cf15cae3293d",
+      "name": "Create other user",
+      "url": "{{base_url}}/sign-up",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2022-09-12T19:58:06.325Z",
+      "modified": "2022-09-12T19:58:10.675Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"email{{last_user_id_created}}@domain.com\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_user_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.email",
+          "action": "setto",
+          "value": "{{last_email_created}}"
+        }
+      ]
+    },
+    {
       "_id": "fc0ad9c8-b9ba-440a-b0ce-f771d987ff78",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "bfc63e12-e583-42d5-bbc3-48f9dfc57814",
@@ -214,6 +261,32 @@
       },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "422" }
+      ]
+    },
+    {
+      "_id": "ead64b7d-4b76-4555-bd47-74182efb9be3",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0ab88366-a1f7-427c-8a9f-cf15cae3293d",
+      "name": "Login other user",
+      "url": "{{base_url}}/login",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2022-09-12T19:58:14.786Z",
+      "modified": "2022-09-12T19:58:17.340Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"email\": \"{{last_email_created}}\",\n  \"password\": \"validPassword\"\n}",
+        "form": []
+      },
+      "tests": [
+        {
+          "type": "set-env-var",
+          "custom": "json.token",
+          "action": "setto",
+          "value": "{{last_token}}"
+        }
       ]
     },
     {
@@ -265,6 +338,64 @@
           "custom": "json.email",
           "action": "setto",
           "value": "{{last_email_created}}"
+        }
+      ]
+    },
+    {
+      "_id": "0b9d6495-33af-45c7-8e7e-09dcccd8ab44",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "0ab88366-a1f7-427c-8a9f-cf15cae3293d",
+      "name": "[201] Other user duplicate title",
+      "url": "{{base_url}}/notes",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2022-09-12T19:58:37.788Z",
+      "modified": "2022-09-12T20:00:30.502Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"{{last_note_title_created}}\",\n  \"body\": \"A body of a note.\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "201" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.body",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_credential_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.title",
+          "action": "setto",
+          "value": "{{last_credential_title_created}}"
         }
       ]
     },
@@ -676,6 +807,28 @@
       ]
     },
     {
+      "_id": "9e879b1d-6ab1-49d4-a220-41c6721b75ec",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "763d3e64-5b62-43ba-89fa-1674c0b3d6a9",
+      "name": "[422] Wrong body",
+      "url": "{{base_url}}/notes",
+      "method": "POST",
+      "sortNum": 130000,
+      "created": "2022-09-12T19:48:21.023Z",
+      "modified": "2022-09-12T19:49:42.568Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": false,\n  \"body\": \"A body of a note.\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "422" }
+      ]
+    },
+    {
       "_id": "2d60f762-5409-4a65-8e96-d30b7d3671da",
       "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
       "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
@@ -707,6 +860,86 @@
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "db49bf1f-500e-4e1f-95f4-55802564f97b",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "763d3e64-5b62-43ba-89fa-1674c0b3d6a9",
+      "name": "[201] Create note",
+      "url": "{{base_url}}/notes",
+      "method": "POST",
+      "sortNum": 140000,
+      "created": "2022-09-12T19:50:16.257Z",
+      "modified": "2022-09-12T19:56:07.381Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"A title{{last_note_id_created}}\",\n  \"body\": \"A body of a note.\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "201" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.body",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.id",
+          "action": "setto",
+          "value": "{{last_note_id_created}}"
+        },
+        {
+          "type": "set-env-var",
+          "custom": "json.title",
+          "action": "setto",
+          "value": "{{last_note_title_created}}"
+        }
+      ]
+    },
+    {
+      "_id": "5877e014-6f4b-4d5f-8edc-a3eb56300b9b",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "763d3e64-5b62-43ba-89fa-1674c0b3d6a9",
+      "name": "[409] Duplicate note title",
+      "url": "{{base_url}}/notes",
+      "method": "POST",
+      "sortNum": 150000,
+      "created": "2022-09-12T19:54:40.180Z",
+      "modified": "2022-09-12T19:56:45.683Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"title\": \"{{last_note_title_created}}\",\n  \"body\": \"A body of a note.\"\n}",
+        "form": []
+      },
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "409" }
       ]
     }
   ],
