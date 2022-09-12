@@ -10,3 +10,8 @@ export async function getUserByEmail(email: string): Promise<User | null> {
   const user: User | null = await client.user.findUnique({ where: { email } });
   return user;
 }
+
+export async function getUserById(userId: number): Promise<User | null> {
+  const user: User | null = await client.user.findUnique({ where: { id: userId } });
+  return user;
+}
