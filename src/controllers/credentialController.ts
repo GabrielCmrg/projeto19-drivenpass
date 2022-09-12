@@ -37,9 +37,22 @@ export async function searchCredential(
 ): Promise<Response> {
   const credentialId: number = Number(req.params.credentialId);
   if (isNaN(credentialId)) {
-    throw notFoundException('The credential you are trying to see doesn\'t exist')
+    throw notFoundException('The credential you are trying to see doesn\'t exist');
   }
   const userId: number = res.locals.userId;
   const credential: Credential = await credentialService.retrieveCredential(credentialId, userId);
   return res.status(200).json(credential);
+}
+
+export async function deleteCredential(
+  req: Request<{ credentialId: string }>,
+  res: Response<any, LocalsType>
+): Promise<Response> {
+  const credentialId: number = Number(req.params.credentialId);
+  if (isNaN(credentialId)) {
+    throw notFoundException('The credential you are trying to delete doesn\'t exist');
+  }
+  const userId: number = res.locals.userId;
+  await credentialService.deleteUserCredential(credentialId, userId);
+  return res.sendStatus(204);
 }
