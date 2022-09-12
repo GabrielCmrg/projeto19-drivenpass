@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "drivenpass",
-  "dateExported": "2022-09-12T04:00:24.661Z",
+  "dateExported": "2022-09-12T16:52:46.515Z",
   "version": "1.1",
   "folders": [
     {
@@ -34,6 +34,13 @@
       "created": "2022-09-11T22:06:12.306Z",
       "sortNum": 40000,
       "settings": {}
+    },
+    {
+      "_id": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
+      "name": "Search credentials",
+      "containerId": "",
+      "created": "2022-09-12T15:03:03.079Z",
+      "sortNum": 50000
     }
   ],
   "requests": [
@@ -483,6 +490,164 @@
       "auth": { "type": "bearer", "bearer": "{{last_token}}" },
       "tests": [
         { "type": "res-code", "custom": "", "action": "equal", "value": "409" }
+      ]
+    },
+    {
+      "_id": "0a22212e-5a0d-418b-b06b-39f5ce48fc1c",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
+      "name": "[200] All user credentials",
+      "url": "{{base_url}}/credentials",
+      "method": "GET",
+      "sortNum": 110000,
+      "created": "2022-09-12T16:37:19.592Z",
+      "modified": "2022-09-12T16:47:57.107Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json",
+          "action": "istype",
+          "value": "array"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.url",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.username",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.password",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.0.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "85eebb0a-39dd-4afd-bdc8-ad1265534c11",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
+      "name": "[200] Single user credential",
+      "url": "{{base_url}}/credentials/{{last_credential_id_created}}",
+      "method": "GET",
+      "sortNum": 120000,
+      "created": "2022-09-12T16:45:22.826Z",
+      "modified": "2022-09-12T16:47:37.005Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "200" },
+        {
+          "type": "res-body",
+          "custom": "",
+          "action": "isjson",
+          "value": "true"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.id",
+          "action": "istype",
+          "value": "number"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.title",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.url",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.username",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.password",
+          "action": "istype",
+          "value": "string"
+        },
+        {
+          "type": "json-query",
+          "custom": "json.ownerId",
+          "action": "istype",
+          "value": "number"
+        }
+      ]
+    },
+    {
+      "_id": "0308d888-dd56-4ed5-ae3c-565570a495a2",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
+      "name": "[403] Another user credential",
+      "url": "{{base_url}}/credentials/1",
+      "method": "GET",
+      "sortNum": 130000,
+      "created": "2022-09-12T16:49:10.228Z",
+      "modified": "2022-09-12T16:50:20.218Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "403" }
+      ]
+    },
+    {
+      "_id": "2d60f762-5409-4a65-8e96-d30b7d3671da",
+      "colId": "d4485c77-7f51-4d27-822b-5647e3c4d10e",
+      "containerId": "f6c8ecd7-1ba0-4643-83c4-7dd92bb48f43",
+      "name": "[404] Non-existing credential",
+      "url": "{{base_url}}/credentials/0",
+      "method": "GET",
+      "sortNum": 140000,
+      "created": "2022-09-12T16:51:49.076Z",
+      "modified": "2022-09-12T16:52:19.805Z",
+      "headers": [],
+      "params": [],
+      "auth": { "type": "bearer", "bearer": "{{last_token}}" },
+      "tests": [
+        { "type": "res-code", "custom": "", "action": "equal", "value": "404" }
       ]
     }
   ],
